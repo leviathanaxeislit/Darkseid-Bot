@@ -44,6 +44,10 @@ def ban(bot: Bot, update: Update, args: List[str]) -> str:
 
     if user_id == bot.id:
         message.reply_text(tld(chat.id, "I'm not gonna BAN myself, are you crazy?"))
+
+    if is_user_ban_protected(chat, user_id, member):
+        message.reply_text("Nibba ,do we really have to do this fuck you for trying to ban a admin ")
+
         return ""
 
     if is_user_ban_protected(chat, user_id, member):
@@ -105,7 +109,11 @@ def temp_ban(bot: Bot, update: Update, args: List[str]) -> str:
             raise
 
     if is_user_ban_protected(chat, user_id, member):
+<<<<<<< HEAD:tg_bot/modules/bans.py
         message.reply_text(tld(chat.id, "I really wish I could ban admins..."))
+=======
+        message.reply_text("Nibba ,do we really have to do this fuck you for trying to ban a admin")
+>>>>>>> d721b92... Some more String changes:IHbot/modules/bans.py
         return ""
 
     if user_id == bot.id:
@@ -185,7 +193,7 @@ def kick(bot: Bot, update: Update, args: List[str]) -> str:
             raise
 
     if is_user_ban_protected(chat, user_id):
-        message.reply_text("I really wish I could kick admins...")
+        message.reply_text("Nibba ,do we really have to do this fuck you for trying to Kick a admin")
         return ""
 
     if user_id == bot.id:
