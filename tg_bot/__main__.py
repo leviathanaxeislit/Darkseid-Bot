@@ -22,9 +22,9 @@ from tg_bot.modules.translations.strings import tld, tld_help
 PM_START_TEXT = """
 Hello {}, my name is {}!
 
-I'm a group manager bot maintained by [this wonderful person](tg://user?id={}). I'm built in python3, using the \
-python-telegram-bot library, and am fully opensource - you can find what makes me tick \
-[here](https://github.com/leviathanaxeislit/Darkseid-Bot)!
+I'm a group manager bot maintained by [this wonderful person](tg://user?id={}). I'm built in python3, kanged
+from @pYanaBot, yet another powerful clone of Marie, checkout his source! \
+[here](https://gitlab.com/MrYacha/pyanabot-2.0)!
 
 You can find the list of available commands with /help.
 
@@ -53,7 +53,7 @@ And the following:
 
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
-It took lots of work for [my creator](t.me/SonOfLars) to get me to where I am now, and every donation helps \
+It took lots of work for [my creator](t.me/myryacha) to get me to where I am now, and every donation helps \
 motivate him to make me even better. All the donation money will go to a better VPS to host me, and/or beer \. 
 https://orangefox.tech/donate."""
 
@@ -128,36 +128,32 @@ def test(bot: Bot, update: Update):
 
 
 @run_async
+@run_async
 def start(bot: Bot, update: Update, args: List[str]):
-    print("Start")
-    chat = update.effective_chat  # type: Optional[Chat]
-    query = update.callback_query
     if update.effective_chat.type == "private":
         if len(args) >= 1:
             if args[0].lower() == "help":
-                send_help(update.effective_chat.id, tld(chat.id, "send-help").format(
-                     dispatcher.bot.first_name, "" if not ALLOW_EXCL else tld(chat.id, "\nAll commands can either be used with `/` or `!`.\n")))
+                send_help(update.effective_chat.id, HELP_STRINGS)
 
             elif args[0].lower().startswith("stngs_"):
                 match = re.match("stngs_(.*)", args[0].lower())
                 chat = dispatcher.bot.getChat(match.group(1))
 
                 if is_user_admin(chat, update.effective_user.id):
-                    send_settings(match.group(1), update.effective_user.id, user=False)
+                    send_settings(match.group(1), update.effective_user.id, False)
                 else:
-                    send_settings(match.group(1), update.effective_user.id, user=True)
+                    send_settings(match.group(1), update.effective_user.id, True)
 
             elif args[0][1:].isdigit() and "rules" in IMPORTED:
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
             first_name = update.effective_user.first_name
-            #update.effective_message.reply_text(tld(chat.id, "send-start"), parse_mode=ParseMode.MARKDOWN)
-            update.effective_message.reply_text(tld(chat.id, "send-start").format(escape_markdown(first_name), escape_markdown(bot.first_name), OWNER_ID), parse_mode=ParseMode.MARKDOWN,
-                                            reply_markup=InlineKeyboardMarkup(
-                                         [[InlineKeyboardButton(text="Help", callback_data="help_back")]]))
+            update.effective_message.reply_text(
+                PM_START_TEXT.format(escape_markdown(first_name), escape_markdown(bot.first_name), OWNER_ID),
+                parse_mode=ParseMode.MARKDOWN)
     else:
-        update.effective_message.reply_text("Yo, whadup?")
+        update.effective_message.reply_text("Heroku servers are up sir :p ")
 
 
 # for test purposes

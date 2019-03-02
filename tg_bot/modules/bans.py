@@ -109,11 +109,7 @@ def temp_ban(bot: Bot, update: Update, args: List[str]) -> str:
             raise
 
     if is_user_ban_protected(chat, user_id, member):
-<<<<<<< HEAD:tg_bot/modules/bans.py
-        message.reply_text(tld(chat.id, "I really wish I could ban admins..."))
-=======
-        message.reply_text("Nibba ,do we really have to do this fuck you for trying to ban a admin")
->>>>>>> d721b92... Some more String changes:IHbot/modules/bans.py
+        message.reply_text(tld(chat.id, "Nibba ,do we really have to do this fuck you for trying to ban a admin."))
         return ""
 
     if user_id == bot.id:

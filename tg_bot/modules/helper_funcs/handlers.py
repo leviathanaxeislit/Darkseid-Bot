@@ -1,6 +1,6 @@
 import telegram.ext as tg
 from telegram import Update
-import tg_bot.modules.sql.global_bans_sql as sql
+import tg_bot.modules.sql.antispam_sql as sql
 
 CMD_STARTERS = ('/', '!')
 
@@ -59,6 +59,6 @@ class GbanLockHandler(tg.CommandHandler):
                         res = any(func(message) for func in self.filters)
                     else:
                         res = self.filters(message)
-                     return res
-         return False
+                    return res
+        return False
 
